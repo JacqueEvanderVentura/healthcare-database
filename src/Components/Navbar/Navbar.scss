@@ -1,0 +1,13 @@
+nav {
+    button {
+        @apply p-2 w-[32.6vw] font-sans text-xl font-semibold;
+        background-color: #002A54;
+        transition: .1s;
+
+        &:hover {
+            background-color: #064583;
+            transition: .1s;
+        }
+    }
+
+}

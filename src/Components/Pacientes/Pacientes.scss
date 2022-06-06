@@ -1,0 +1,51 @@
+table {
+    @apply mx-2 mb-2 text-center overflow-y-scroll;
+
+    th {
+        @apply text-white p-2;
+        font-family: Nunito, sans-serif;
+        background-color: #01987A;
+
+        &:first-child {
+            @apply rounded-tl-2xl;
+        }
+
+        &:last-child {
+            @apply rounded-tr-2xl;
+        }
+    }
+
+    tr {
+        transition: .3s;
+
+        &:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+
+        &:nth-child(odd) {
+            background-color: #FFF;
+        }
+
+        &:last-child{
+            border-bottom: 3px solid #01987A;
+        }
+
+        &:hover{
+            background-color:#75bcae;
+            transition: .1s;
+        }
+    }
+
+    td{
+        transition: .3s;
+
+        &:hover{
+            background-color: #01987A;
+            color: #FFF;
+            transition: .1s
+
+        }
+    }
+
+}
+

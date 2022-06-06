@@ -1,0 +1,13 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.scss';
+
+export const Navbar = () => {
+  return (
+    <nav className='flex flex-row justify-center space-x-1 text-white'>
+        <Link to="calendario"><button className='rounded-bl-2xl'>Calendario</button></Link>        
+        <Link to="pacientes"><button>Pacientes </button></Link>
+        <Link to="nosebro"><button className='rounded-br-2xl'>Button 3</button></Link>
+    </nav>
+  )
+}
