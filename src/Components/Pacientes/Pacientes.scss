@@ -16,7 +16,7 @@ table {
     }
 
     tr {
-        transition: .3s;
+        transition: .2s;
 
         &:nth-child(even) {
             background-color: #f3f3f3;
@@ -37,8 +37,12 @@ table {
     }
 
     td{
-        transition: .3s;
-
+        transition: .2s;
+        a{
+            &:hover{
+                color:#FFF;
+            }
+        }
         &:hover{
             background-color: #01987A;
             color: #FFF;

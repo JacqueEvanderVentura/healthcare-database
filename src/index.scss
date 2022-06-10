@@ -12,8 +12,56 @@
     box-sizing: border-box;
 }
 
+h1 {
+    @apply text-4xl font-medium;
+}
+
+h2 {
+    @apply text-2xl font-medium;
+}
+
+h3 {
+    @apply text-xl font-medium;
+}
+
+h4 {
+    @apply font-medium;
+}
+
 body {
     background: rgb(219, 215, 215);
-    overflow:scroll;
+    overflow: scroll;
 
+}
+
+button {
+    @apply bg-slate-600 rounded-md w-20 h-10 p-2 min-w-fit text-white;
+}
+
+i {
+    @apply m-1
+}
+
+input,
+select,
+textarea {
+    @apply px-2 py-1 rounded-md;
+}
+
+.modal {
+    @apply fixed inset-y-0 inset-x-0 bg-gray-900 bg-opacity-50 flex flex-col justify-center items-center;
+
+    .card {
+        @apply rounded-2xl p-10 border border-gray-50 shadow-lg bg-white flex justify-center flex-col;
+
+        input,
+        select,
+        textarea {
+            @apply border border-black block;
+        }
+    }
+}
+
+.main-green {
+    background: #01987A;
 }
