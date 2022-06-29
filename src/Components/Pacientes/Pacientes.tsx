@@ -1051,7 +1051,11 @@ export const Pacientes = () => {
               <br/>
               <a href={"mailto:"+dummy.email} target="_blank" className='underline'  >{dummy.email}</a>
               </td>
-              <td>al rato lo pongo</td>
+              <td className='flex justify-center space-x-2'>
+                <button className='w-14 bg-blue-500 '><i className="fa-solid fa-clipboard-list"></i></button>
+                <button className='w-14 bg-green-500'><i className="fa-solid fa-pen-to-square"></i></button>
+                <button className='w-14 bg-red-500'><i className="fa-solid fa-user-xmark"></i></button>
+              </td>
             </tr>
             )}
         </tbody>
