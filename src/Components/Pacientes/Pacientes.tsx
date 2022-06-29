@@ -1084,7 +1084,7 @@ export const Pacientes = () => {
           {/* </div> */}
           <hr />
 
-          <form action="" method="post">
+          {/* <form action="" method="post"> */}
           <label htmlFor="inputAddIdentification">Cédula o pasaporte:</label>
           <input id="inputAddIdentification" type="text" />
 
@@ -1109,7 +1109,7 @@ export const Pacientes = () => {
 
          <button className='main-green m-2 self-end'><span><i className='fa-solid fa-plus'></i></span>Agregar</button>
           
-          </form>
+          {/* </form> */}
         </div>
       </div>
       :null}
