@@ -21,7 +21,7 @@ export const Pacientes = () => {
   //     return;
   //   setShowingModal(false);
   // };
-  
+  const booly = false;
 
   const dummyData = [
     {"id":"402-1202426-5","first_name":"Jacque","last_name":"Ventura","gender":"Male","blood_type":"A+","email":"jacque.evander.ventura@gmail.com","phone":"829-927-8886"},
@@ -1041,6 +1041,21 @@ export const Pacientes = () => {
           </tr>
         </thead>
         <tbody>
+          {/* <tr>
+            <td>402-1202426-5</td>
+            <td>Jacque Ventura</td>
+            <td>A+</td>
+            <td style={{color:'#002A54'}}>
+            <a href="https://api.whatsapp.com/send?phone=18299278886" target="_blank" className='underline'>829-927-8886</a>
+            <br/>
+              <a href="mailto:jacque.evander.ventura@gmail.com" target="_blank" className='underline'  >jacque.evander.ventura@gmail.com</a>
+            </td>
+            <td className='flex justify-center space-x-2 h-[100%]'>
+                <button className='w-14 bg-blue-500 '><i className="fa-solid fa-clipboard-list"></i></button>
+                <button className='w-14 bg-green-500'><i className="fa-solid fa-pen-to-square"></i></button>
+                <button className='w-14 bg-red-500'><i className="fa-solid fa-user-xmark"></i></button>
+              </td>
+          </tr> */}
           {dummyData.map((dummy, index)=>
             <tr key={index}>
               <td className="max-w-fit">{dummy.id}</td>
@@ -1051,7 +1066,7 @@ export const Pacientes = () => {
               <br/>
               <a href={"mailto:"+dummy.email} target="_blank" className='underline'  >{dummy.email}</a>
               </td>
-              <td className='flex justify-center space-x-2'>
+              <td className='flex justify-center items-center top-2 space-x-2 border border-black'>
                 <button className='w-14 bg-blue-500 '><i className="fa-solid fa-clipboard-list"></i></button>
                 <button className='w-14 bg-green-500'><i className="fa-solid fa-pen-to-square"></i></button>
                 <button className='w-14 bg-red-500'><i className="fa-solid fa-user-xmark"></i></button>
