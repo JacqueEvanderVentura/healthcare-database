@@ -9,8 +9,8 @@ const initialState = [
     bloodType: "A+",
     email: "jacque.evander.ventura@gmail.com",
     phone: "829-927-8886",
-    pathologies: "sida",
-    allergies: "pb jelly",
+    pathologies: ["sida", "sifilis"],
+    allergies: ["pb jelly", "nuts"],
     created: Date.now(),
     lastModified: Date.now()
   },

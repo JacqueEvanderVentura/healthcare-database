@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { bloodTypes } from "../../../Assets/blood-types";
-import { actionLOGIN } from "../../../Logic/Login/actionsLOGIN";
 import { actionPATIENT } from "../../../Logic/Patient/actionsPATIENT";
 
+import "./Modals.scss";
 export const ModalEditPatient = ({
   setShowingModal,
   patientId,
@@ -32,8 +32,8 @@ export const ModalEditPatient = ({
   const dispatch = useDispatch();
   function handleEditPatient(e: any) {
     e.preventDefault();
-    dispatch({type:actionPATIENT.EDIT_PATIENT, payload:patientInfo})
-    setShowingModal(false)
+    dispatch({ type: actionPATIENT.EDIT_PATIENT, payload: patientInfo });
+    setShowingModal(false);
   }
   return (
     <div id="modalEditPatient" className="modal">
@@ -45,10 +45,10 @@ export const ModalEditPatient = ({
         >
           <i className="fa-solid fa-x"></i>
         </button>
-        <h3 className="self-start">Editar paciente</h3>
+        <h4 className="self-start">Editar paciente</h4>
         <hr className="mt-1" />
 
-        <form onSubmit={handleEditPatient}>
+        <form onSubmit={handleEditPatient} className="modalFormatInput">
           <label htmlFor="inputEditIdentification">Cédula o pasaporte:</label>
           <input
             disabled
@@ -76,41 +76,46 @@ export const ModalEditPatient = ({
             type="text"
           />
 
-          <label htmlFor="inputSelectGender">Género:</label>
-          <select
-            disabled
-            value={patientInfo.gender}
-            name="gender"
-            id="inputSelectGender"
-            // defaultValue="DEFAULT-GENDER"
-          >
-            <option value="DEFAULT-GENDER" disabled>
-              -- Elegir género --
-            </option>
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-            <option value="other">Otro</option>
-          </select>
-
-          <label htmlFor="inputSelectBloodTypes">Tipo de sangre:</label>
-          <select
-            disabled
-            title="Elegir tipo"
-            // defaultValue="DEFAULT-BLOOD-TYPE"
-            value={patientInfo.bloodType}
-            onChange={onChangePatientInfoHandler}
-            name="bloodType"
-            id="inputSelectBloodTypes"
-          >
-            <option value="DEFAULT-BLOOD-TYPE" disabled>
-              -- Elegir tipo --
-            </option>
-            {bloodTypes.map((bloodType) => (
-              <option key={bloodType} value={bloodType}>
-                {bloodType}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-row justify-around">
+            <div>
+              <label htmlFor="inputSelectGender">Género:</label>
+              <select
+                disabled
+                value={patientInfo.gender}
+                name="gender"
+                id="inputSelectGender"
+                // defaultValue="DEFAULT-GENDER"
+              >
+                <option value="DEFAULT-GENDER" disabled>
+                  -- Elegir género --
+                </option>
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="inputSelectBloodTypes">Tipo de sangre:</label>
+              <select
+                disabled
+                title="Elegir tipo"
+                // defaultValue="DEFAULT-BLOOD-TYPE"
+                value={patientInfo.bloodType}
+                onChange={onChangePatientInfoHandler}
+                name="bloodType"
+                id="inputSelectBloodTypes"
+              >
+                <option value="DEFAULT-BLOOD-TYPE" disabled>
+                  -- Elegir tipo --
+                </option>
+                {bloodTypes.map((bloodType) => (
+                  <option key={bloodType} value={bloodType}>
+                    {bloodType}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
           <label htmlFor="inputEditPhone">Teléfono o celular:</label>
           <input

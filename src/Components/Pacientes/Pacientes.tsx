@@ -4,16 +4,20 @@ import { useSelector } from 'react-redux';
 import './Pacientes.scss';
 
 import { SearchBar } from '../SearchBar/SearchBar';
-import { ModalAddPatient } from './modalAddPatient/ModalAddPatient';
-import { ModalEditPatient } from './modalEditPatient.tsx/ModalEditPatient';
+import { ModalAddPatient } from './Modals/ModalAddPatient';
+import { ModalEditPatient } from './Modals/ModalEditPatient';
 
 import { dummyData } from './dummy-data';
+import { ModalPatientClinicalHistory } from './Modals/ModalPatientClinicalHistory';
 
 
 export const Pacientes = () => {
   let [isShowingAddModal, setShowingAddModal] = useState(false);
   let [isShowingEditModal, setShowingEditModal] = useState(false);
-  let [patientId, setPatientId] = useState(0)
+  let [isShowingClinicalHistoryModal, setShowingClinicalHistoryModal] = useState(false);
+  let [patient, setPatient] = useState(null);
+  let [patientId, setPatientId] = useState(null)
+  const patients = useSelector((state:any)=>state.patient)
   // const dismissMap = (event: MouseEvent)=> {
   //   const element = <HTMLElement>event.target;
   //   if (element.matches('#map-container') || element.closest('#map-container'))
@@ -28,10 +32,13 @@ export const Pacientes = () => {
   //   setShowingModal(false);
   // };
 
-  const patients = useSelector((state:any)=>state.patient)
   function handleShowEditModal(patientId:any){
     setShowingEditModal(true)
     setPatientId(patientId)
+  }
+  function handleShowClinicalHistory(patient:any){
+    setShowingClinicalHistoryModal(true);
+    setPatient(patient)
   }
     return (
     <div className='flex justify-center flex-col'>
@@ -61,7 +68,7 @@ export const Pacientes = () => {
               <a href={"mailto:"+patient.email} target="_blank" rel="noreferrer" className='underline'  ><i className="fa-solid fa-envelope"></i>{patient.email}</a>
               </td>
               <td className='space-x-2'>
-                <button aria-label='Historial clínico' title='Historial clínico' className='w-14 bg-blue-500 border border-blue-500 hover:border-white transition-all hover:transition-all'><i className="fa-solid fa-clipboard-list"></i></button>
+                <button onClick={()=>handleShowClinicalHistory(patient)} aria-label='Historial clínico' title='Historial clínico' className='w-14 bg-blue-500 border border-blue-500 hover:border-white transition-all hover:transition-all'><i className="fa-solid fa-clipboard-list"></i></button>
                 <button onClick={()=>handleShowEditModal(patient.id)} aria-label='Editar paciente' title='Editar paciente' className='w-14 bg-green-500 border border-green-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-pen-to-square"></i></button>
                 <button aria-label='Eliminar paciente' title='Eliminar paciente' className='w-14 bg-red-500 border border-red-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-user-xmark"></i></button>
               </td>
@@ -94,6 +101,10 @@ export const Pacientes = () => {
       {
         isShowingEditModal &&
         <ModalEditPatient setShowingModal={setShowingEditModal} patientId={patientId} patients={patients} />
+      }
+      {
+        isShowingClinicalHistoryModal &&
+        <ModalPatientClinicalHistory setShowingModal={setShowingClinicalHistoryModal} patient={patient} />
       }
     </div>
     
