@@ -4,8 +4,10 @@ import './Pacientes.scss';
 
 import { SearchBar } from '../SearchBar/SearchBar';
 
-import { bloodTypes } from '../../Assets/blood_types';
+import { bloodTypes } from '../../Assets/blood-types';
 import { dummyData } from './dummy-data';
+import { ModalAddPatient } from './modalAddPatient/ModalAddPatient';
+import { useSelector } from 'react-redux';
 
 export const Pacientes = () => {
   let [isShowingModal, setShowingModal] = useState(false);
@@ -23,6 +25,7 @@ export const Pacientes = () => {
   //   setShowingModal(false);
   // };
 
+  const patients = useSelector((state:any)=>state.patient)
     return (
     <div className='flex justify-center flex-col'>
       <SearchBar></SearchBar>
@@ -40,15 +43,15 @@ export const Pacientes = () => {
           </tr>
         </thead>
         <tbody>
-          {dummyData.map((dummy, index)=>
+          {patients.map((patient:any, index:number)=>
             <tr key={index}>
-              <td className="max-w-fit">{dummy.id}</td>
-              <td>{dummy.first_name} {dummy.last_name}</td>
-              <td>{dummy.blood_type.toUpperCase()}</td>
+              <td className="max-w-fit">{patient.id}</td>
+              <td>{patient.firstName} {patient.lastName}</td>
+              <td>{patient.bloodType.toUpperCase()}</td>
               <td style={{color:'#002A54'}}>
-              <a href={"https://api.whatsapp.com/send?phone=1" + dummy.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'><i className="fa-brands fa-whatsapp"></i> {dummy.phone}</a>
+              <a href={"https://api.whatsapp.com/send?phone=1" + patient.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'><i className="fa-brands fa-whatsapp"></i> {patient.phone}</a>
               <br/>
-              <a href={"mailto:"+dummy.email} target="_blank" rel="noreferrer" className='underline'  ><i className="fa-solid fa-envelope"></i>{dummy.email}</a>
+              <a href={"mailto:"+patient.email} target="_blank" rel="noreferrer" className='underline'  ><i className="fa-solid fa-envelope"></i>{patient.email}</a>
               </td>
               <td className='space-x-2'>
                 <button aria-label='Historial clínico' title='Historial clínico' className='w-14 bg-blue-500 border border-blue-500 hover:border-white transition-all hover:transition-all'><i className="fa-solid fa-clipboard-list"></i></button>
@@ -62,14 +65,14 @@ export const Pacientes = () => {
       :
       <table>
         <tbody>
-          {dummyData.map(dummy=>
+          {dummyData.map((dummy, index)=>
             
-          <tr>
+          <tr key={index}>
             <td className='rounded-md shadow-2xl'>
               <strong>💳</strong> {dummy.id} <br/>
               {dummy.gender == "Male"?"👨":
-               dummy.gender == "Female"?"👩":"😄"} {dummy.first_name} {dummy.last_name}  <br/>
-              <strong>💉🩸</strong> {dummy.blood_type.toUpperCase()} <br/>
+               dummy.gender == "Female"?"👩":"😄"} {dummy.firstName} {dummy.lastName}  <br/>
+              <strong>💉🩸</strong> {dummy.bloodType.toUpperCase()} <br/>
               <strong>📞</strong> <a href={"https://api.whatsapp.com/send?phone=1" + dummy.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'>{dummy.phone}</a> <br/>
               <strong>📨</strong> <a href={"mailto:"+dummy.email} target="_blank" rel="noreferrer" className='underline'>{dummy.email}</a><br/>
             </td>
@@ -79,42 +82,7 @@ export const Pacientes = () => {
       </table>
       }
       {isShowingModal && 
-      <div id="modalAddPatient" className='modal' >
-        <div className="card  w-[40%] min-w-fit" >
-          {/* <div className='flex flex-row'> */}
-          <button aria-label='Cerrar' className='bg-red-500 max-w-fit max-h-fit m-0 py-1 px-2 self-end' onClick={()=>setShowingModal(false)}><span><i className="fa-solid fa-x"></i></span></button>
-          <h3 className='self-start'>Agregar paciente</h3>
-          {/* </div> */}
-          <hr />
-
-          {/* <form action="" method="post"> */}
-          <label htmlFor="inputAddIdentification">Cédula o pasaporte:</label>
-          <input id="inputAddIdentification" type="text" />
-
-          <label htmlFor="inputAddFirstName">Primer nombre:</label>
-          <input id="inputAddFirstName" type="text" />
-          <label htmlFor="inputAddLastName">Primer Apellido:</label>
-          <input id="inputAddLastName" type="text" />
-
-          <label htmlFor="inputAddLastName">Tipo de sangre:</label>
-         <select title='Elegir tipo' name="inputSelectBloodTypes" id="inputSelectBloodTypes">
-          <option selected disabled>-- Elegir tipo --</option>
-         {bloodTypes.map(bloodType=>
-          <option value={bloodType}>{bloodType}</option>
-          )}
-         </select>
-
-          <label htmlFor="inputAddPhone">Teléfono o celular:</label>
-          <input id="inputAddPhone" type="tel" />
-          
-          <label htmlFor="inputAddEmail">Email:</label>
-          <input id="inputAddEmail" type="email" />
-
-         <button className='main-green m-2 self-end'><span><i className='fa-solid fa-plus'></i></span>Agregar</button>
-          
-          {/* </form> */}
-        </div>
-      </div>
+      <ModalAddPatient setShowingModal={setShowingModal} />
       }
     </div>
     
