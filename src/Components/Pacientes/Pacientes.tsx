@@ -1,16 +1,19 @@
 import {useState} from 'react';
+import { useSelector } from 'react-redux';
 
 import './Pacientes.scss';
 
 import { SearchBar } from '../SearchBar/SearchBar';
-
-import { bloodTypes } from '../../Assets/blood-types';
-import { dummyData } from './dummy-data';
 import { ModalAddPatient } from './modalAddPatient/ModalAddPatient';
-import { useSelector } from 'react-redux';
+import { ModalEditPatient } from './modalEditPatient.tsx/ModalEditPatient';
+
+import { dummyData } from './dummy-data';
+
 
 export const Pacientes = () => {
-  let [isShowingModal, setShowingModal] = useState(false);
+  let [isShowingAddModal, setShowingAddModal] = useState(false);
+  let [isShowingEditModal, setShowingEditModal] = useState(false);
+  let [patientId, setPatientId] = useState(0)
   // const dismissMap = (event: MouseEvent)=> {
   //   const element = <HTMLElement>event.target;
   //   if (element.matches('#map-container') || element.closest('#map-container'))
@@ -26,10 +29,14 @@ export const Pacientes = () => {
   // };
 
   const patients = useSelector((state:any)=>state.patient)
+  function handleShowEditModal(patientId:any){
+    setShowingEditModal(true)
+    setPatientId(patientId)
+  }
     return (
     <div className='flex justify-center flex-col'>
       <SearchBar></SearchBar>
-      <button  onClick={()=>setShowingModal(true)} className='main-green self-end m-2 pr-3 hover:bg-green-500 transition-all hover:transition-all'><i className="fa-solid fa-plus"></i>Agregar</button>
+      <button  onClick={()=>setShowingAddModal(true)} className='main-green self-end m-2 pr-3 hover:bg-green-500 transition-all hover:transition-all'><i className="fa-solid fa-plus"></i>Agregar</button>
       
       {window.innerWidth > 710?
       <table>
@@ -55,7 +62,7 @@ export const Pacientes = () => {
               </td>
               <td className='space-x-2'>
                 <button aria-label='Historial clínico' title='Historial clínico' className='w-14 bg-blue-500 border border-blue-500 hover:border-white transition-all hover:transition-all'><i className="fa-solid fa-clipboard-list"></i></button>
-                <button aria-label='Editar paciente' title='Editar paciente' className='w-14 bg-green-500 border border-green-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-pen-to-square"></i></button>
+                <button onClick={()=>handleShowEditModal(patient.id)} aria-label='Editar paciente' title='Editar paciente' className='w-14 bg-green-500 border border-green-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-pen-to-square"></i></button>
                 <button aria-label='Eliminar paciente' title='Eliminar paciente' className='w-14 bg-red-500 border border-red-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-user-xmark"></i></button>
               </td>
             </tr>
@@ -81,8 +88,12 @@ export const Pacientes = () => {
         </tbody>
       </table>
       }
-      {isShowingModal && 
-      <ModalAddPatient setShowingModal={setShowingModal} />
+      {isShowingAddModal && 
+      <ModalAddPatient setShowingModal={setShowingAddModal} />
+      }
+      {
+        isShowingEditModal &&
+        <ModalEditPatient setShowingModal={setShowingEditModal} patientId={patientId} patients={patients} />
       }
     </div>
     

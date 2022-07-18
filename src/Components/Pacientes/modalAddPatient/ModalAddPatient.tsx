@@ -16,6 +16,8 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
     email: "",
     pathologies: "",
     allergies: "",
+    created: Date.now(),
+    lastModification: Date.now()
   });
 
 	function onChangePatientInfoHandler (e: any) {
@@ -26,6 +28,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
     e.preventDefault();
     dispatch({ type: actionPATIENT.ADD_PATIENT, payload: patientInfo });
   }
+  
   return (
     <div id="modalAddPatient" className="modal">
       <div className="card  w-[40%] min-w-fit">

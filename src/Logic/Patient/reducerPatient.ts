@@ -11,6 +11,8 @@ const initialState = [
     phone: "829-927-8886",
     pathologies: "sida",
     allergies: "pb jelly",
+    created: Date.now(),
+    lastModified: Date.now()
   },
 ];
 export function reducerPatient(state = initialState, action: any) {
@@ -19,7 +21,11 @@ export function reducerPatient(state = initialState, action: any) {
       return [...state, action.payload];
 
     case actionPATIENT.EDIT_PATIENT:
-      return;
+        return state.map(patient =>{
+            if(patient.id === action.payload.id){
+                return {...action.payload, created: patient.created }
+            }
+        })
 
     case actionPATIENT.DELETE_PATIENT:
       return;
