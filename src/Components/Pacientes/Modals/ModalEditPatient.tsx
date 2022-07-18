@@ -83,16 +83,17 @@ export const ModalEditPatient = ({
               <select
                 disabled
                 value={patientInfo.gender}
+                defaultValue={patientInfo.gender}
                 name="gender"
                 id="inputSelectGender"
                 // defaultValue="DEFAULT-GENDER"
               >
-                <option value="DEFAULT-GENDER" disabled>
-                  -- Elegir género --
+                <option value={patientInfo.gender} disabled>
+                {patientInfo.gender === "Male"? "Masculino":
+                 patientInfo.gender === "Female"? "Femenino": "Otro"
+                }
                 </option>
-                <option value="male">Masculino</option>
-                <option value="female">Femenino</option>
-                <option value="other">Otro</option>
+               
               </select>
             </div>
             <div>
@@ -100,20 +101,16 @@ export const ModalEditPatient = ({
               <select
                 disabled
                 title="Elegir tipo"
-                // defaultValue="DEFAULT-BLOOD-TYPE"
+                defaultValue={patientInfo.bloodType}
                 value={patientInfo.bloodType}
                 // onChange={onChangePatientInfoHandler}
                 name="bloodType"
                 id="inputSelectBloodTypes"
               >
-                <option value="DEFAULT-BLOOD-TYPE" disabled>
-                  -- Elegir tipo --
+                <option value={patientInfo.bloodType} disabled>
+                {patientInfo.bloodType}
                 </option>
-                {bloodTypes.map((bloodType) => (
-                  <option key={bloodType} value={bloodType}>
-                    {bloodType}
-                  </option>
-                ))}
+               
               </select>
             </div>
           </div>

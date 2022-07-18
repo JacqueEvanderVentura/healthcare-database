@@ -35,12 +35,22 @@ export const ModalPatientClinicalHistory = ({
           
           <div>
             <h6>Telefono/Celular:</h6>
-            <a href={"https://api.whatsapp.com/send?phone=1" + patient.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'><i className="fa-brands fa-whatsapp text-green-600"></i> {patient.phone}</a>
+            {
+              patient.phone?
+              <a href={"https://api.whatsapp.com/send?phone=1" + patient.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'><i className="fa-brands fa-whatsapp text-green-600"></i> {patient.phone}</a>
+              :
+              <em title="Puede seleccionar la opcion de 'Editar' para asociar un número telefónico.">No hay número telefónico asociado <i className="fa-solid fa-circle-info"></i></em>
+            }
           </div>
           
           <div>
             <h6>Email:</h6>
-            <a href={"mailto:"+patient.email} target="_blank" rel="noreferrer" className='underline'  ><i className="fa-solid fa-envelope text-blue-500"></i>{patient.email}</a>
+            {
+              patient.email?
+              <a href={"mailto:"+patient.email} target="_blank" rel="noreferrer" className='underline'  ><i className="fa-solid fa-envelope text-blue-500"></i>{patient.email}</a>
+              :
+              <em title="Puede seleccionar la opcion de 'Editar' para asociar un correo electrónico.">No hay correo electrónico asociado <i className="fa-solid fa-circle-info"></i></em>
+            }
           </div>
         
           <div>

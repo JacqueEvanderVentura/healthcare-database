@@ -24,15 +24,21 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
   });
 
   function onChangePatientInfoHandler(e: any) {
-    setPatientInfo({ ...patientInfo, [e.target.name]:   e.target.value  })
-    }
+    setPatientInfo({ ...patientInfo, [e.target.name]: e.target.value });
+  }
 
-    function onChangeMultiplePatientInfoHandler(e: any) {
-      setPatientInfo({ ...patientInfo, [e.target.name]:   Array.from(e.target.selectedOptions,(option:any) => option.value) })
-      }
+  function onChangeMultiplePatientInfoHandler(e: any) {
+    setPatientInfo({
+      ...patientInfo,
+      [e.target.name]: Array.from(
+        e.target.selectedOptions,
+        (option: any) => option.value
+      ),
+    });
+  }
   function handleAddPatient(e: any) {
     e.preventDefault();
-    setShowingModal(false)
+    setShowingModal(false);
     dispatch({ type: actionPATIENT.ADD_PATIENT, payload: patientInfo });
   }
 
@@ -52,6 +58,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
         <form onSubmit={handleAddPatient} className="modalFormatInput">
           <label htmlFor="inputAddIdentification">Cédula o pasaporte:</label>
           <input
+            required
             name="id"
             onChange={onChangePatientInfoHandler}
             id="inputAddIdentification"
@@ -60,6 +67,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
 
           <label htmlFor="inputAddFirstName">Primer nombre:</label>
           <input
+            required
             name="firstName"
             onChange={onChangePatientInfoHandler}
             id="inputAddFirstName"
@@ -68,6 +76,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
 
           <label htmlFor="inputAddLastName">Primer Apellido:</label>
           <input
+            required
             name="lastName"
             onChange={onChangePatientInfoHandler}
             id="inputAddLastName"
@@ -78,12 +87,13 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
             <div>
               <label htmlFor="inputSelectGender">Género:</label>
               <select
+                required
                 name="gender"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectGender"
-                defaultValue="DEFAULT-GENDER"
+                defaultValue=""
               >
-                <option value="DEFAULT-GENDER" disabled>
+                <option value="" disabled>
                   -- Seleccionar género --
                 </option>
                 <option value="Male">Masculino</option>
@@ -96,12 +106,13 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
               <label htmlFor="inputSelectBloodTypes">Tipo de sangre:</label>
               <select
                 title="Seleccionar tipo"
-                defaultValue="DEFAULT-BLOOD-TYPE"
                 name="bloodType"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectBloodTypes"
+                defaultValue=""
+                required
               >
-                <option value="DEFAULT-BLOOD-TYPE" disabled>
+                <option value="" disabled>
                   -- Seleccionar tipo --
                 </option>
                 {bloodTypes.map((bloodType) => (
@@ -119,18 +130,19 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
               <select
                 onChange={onChangeMultiplePatientInfoHandler}
                 name="allergies"
-                // defaultValue="DEFAULT-ALLERGY"
+                defaultValue="Ninguna alergia"
                 id="inputSelectAllergies"
                 multiple
               >
-                <option value="DEFAULT-ALLERGY" disabled>
+                <option value="Ninguna alergia" disabled>
                   -- Seleccionar alergias --
                 </option>
                 <option value="Ninguna alergia">Ninguna</option>
-                {
-                  allergies.map(allergy=>
-                    <option key={allergy} value={allergy}>{allergy.charAt(0).toUpperCase()+allergy.slice(1)}</option>)
-                }
+                {allergies.map((allergy) => (
+                  <option key={allergy} value={allergy}>
+                    {allergy.charAt(0).toUpperCase() + allergy.slice(1)}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -138,17 +150,19 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
               <label htmlFor="inputSelectPathologies">Patologías:</label>
               <select
                 onChange={onChangeMultiplePatientInfoHandler}
-                // defaultValue="DEFAULT-PATHOLOGY"
+                defaultValue="Ninguna patología"
                 name="pathologies"
                 id="inputSelectPathologies"
                 multiple={true}
               >
-                <option value="DEFAULT-PATHOLOGY" disabled>
+                <option value="Ninguna patología" disabled>
                   -- Seleccionar patologías --
                 </option>
                 <option value="Ninguna patología">Ninguna</option>
-                {pathologies.map((pathology: any, index:number) => (
-                  <option key={index} value={pathology}>{pathology}</option>
+                {pathologies.map((pathology: any, index: number) => (
+                  <option key={index} value={pathology}>
+                    {pathology}
+                  </option>
                 ))}
               </select>
             </div>
