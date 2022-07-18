@@ -45,16 +45,28 @@ export const ModalPatientClinicalHistory = ({
         
           <div>
             <h6>Alergias:</h6>
-            {patient.allergies.map((allergy:any)=>
-             <span className="allergies-and-pathologies">{allergy}</span>
-            )}
+            {patient.allergies > 0?
+            patient.allergies.map((allergy:any)=>
+             <span key={allergy} className="allergies-and-pathologies">{allergy || "No tiene"}</span>
+             )
+             :
+             <span className="allergies-and-pathologies">Ninguna</span>
+          }
           </div>
 
-          <div>
-            <h6>Patologías</h6>
-            {patient.pathologies.map((pathology:any)=>
-             <span className="allergies-and-pathologies">{pathology}</span>
-            )}          </div>
+          <div  >
+            <h6>Patologías:</h6>
+            <div >
+
+            {patient.pathologies.length > 0?
+            patient.pathologies.map((pathology:any)=>
+             <span key={pathology} className="allergies-and-pathologies only-3-items-per-row">{ pathology }</span>
+             )
+            :
+            <span className="allergies-and-pathologies only-3-items-per-row">Ninguna</span>
+          }         
+             </div>
+          </div>
         </div>
       </div>
     </div>

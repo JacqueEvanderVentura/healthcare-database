@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { allergies } from "../../../Assets/allergies";
 import { bloodTypes } from "../../../Assets/blood-types";
+import { pathologies } from "../../../Assets/pathologies";
 import { actionPATIENT } from "../../../Logic/Patient/actionsPATIENT";
 import "./Modals.scss";
 
@@ -15,16 +17,19 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
     bloodType: "",
     phone: "",
     email: "",
-    pathologies: "",
-    allergies: "",
+    pathologies: [],
+    allergies: [],
     created: Date.now(),
     lastModification: Date.now(),
   });
 
   function onChangePatientInfoHandler(e: any) {
-    setPatientInfo({ ...patientInfo, [e.target.name]: e.target.value });
-  }
+    setPatientInfo({ ...patientInfo, [e.target.name]:   e.target.value  })
+    }
 
+    function onChangeMultiplePatientInfoHandler(e: any) {
+      setPatientInfo({ ...patientInfo, [e.target.name]:   Array.from(e.target.selectedOptions,(option:any) => option.value) })
+      }
   function handleAddPatient(e: any) {
     e.preventDefault();
     dispatch({ type: actionPATIENT.ADD_PATIENT, payload: patientInfo });
@@ -78,7 +83,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
                 defaultValue="DEFAULT-GENDER"
               >
                 <option value="DEFAULT-GENDER" disabled>
-                  -- Elegir género --
+                  -- Seleccionar género --
                 </option>
                 <option value="male">Masculino</option>
                 <option value="female">Femenino</option>
@@ -89,19 +94,60 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
             <div>
               <label htmlFor="inputSelectBloodTypes">Tipo de sangre:</label>
               <select
-                title="Elegir tipo"
+                title="Seleccionar tipo"
                 defaultValue="DEFAULT-BLOOD-TYPE"
                 name="bloodType"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectBloodTypes"
               >
                 <option value="DEFAULT-BLOOD-TYPE" disabled>
-                  -- Elegir tipo --
+                  -- Seleccionar tipo --
                 </option>
                 {bloodTypes.map((bloodType) => (
                   <option key={bloodType} value={bloodType}>
                     {bloodType}
                   </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="flex space-x-2 mt-2">
+            <div>
+              <label htmlFor="inputSelectAllergies">Alergias:</label>
+              <select
+                onChange={onChangeMultiplePatientInfoHandler}
+                name="allergies"
+                // defaultValue="DEFAULT-ALLERGY"
+                id="inputSelectAllergies"
+                multiple
+              >
+                <option value="DEFAULT-ALLERGY" disabled>
+                  -- Seleccionar alergias --
+                </option>
+                <option value="Ninguna alergia">Ninguna</option>
+                {
+                  allergies.map(allergy=>
+                    <option key={allergy} value={allergy}>{allergy.charAt(0).toUpperCase()+allergy.slice(1)}</option>)
+                }
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="inputSelectPathologies">Patologías:</label>
+              <select
+                onChange={onChangeMultiplePatientInfoHandler}
+                // defaultValue="DEFAULT-PATHOLOGY"
+                name="pathologies"
+                id="inputSelectPathologies"
+                multiple={true}
+              >
+                <option value="DEFAULT-PATHOLOGY" disabled>
+                  -- Seleccionar patologías --
+                </option>
+                <option value="Ninguna patología">Ninguna</option>
+                {pathologies.map((pathology: any, index:number) => (
+                  <option key={index} value={pathology}>{pathology}</option>
                 ))}
               </select>
             </div>

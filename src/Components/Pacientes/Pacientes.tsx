@@ -84,8 +84,8 @@ export const Pacientes = () => {
           <tr key={index}>
             <td className='rounded-md shadow-2xl'>
               <strong>💳</strong> {dummy.id} <br/>
-              {dummy.gender == "Male"?"👨":
-               dummy.gender == "Female"?"👩":"😄"} {dummy.firstName} {dummy.lastName}  <br/>
+              {dummy.gender === "Male"?"👨":
+               dummy.gender === "Female"?"👩":"😄"} {dummy.firstName} {dummy.lastName}  <br/>
               <strong>💉🩸</strong> {dummy.bloodType.toUpperCase()} <br/>
               <strong>📞</strong> <a href={"https://api.whatsapp.com/send?phone=1" + dummy.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'>{dummy.phone}</a> <br/>
               <strong>📨</strong> <a href={"mailto:"+dummy.email} target="_blank" rel="noreferrer" className='underline'>{dummy.email}</a><br/>

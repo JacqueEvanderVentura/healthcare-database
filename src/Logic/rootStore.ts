@@ -7,6 +7,6 @@ const allReducers = combineReducers({
     login:   reducerLogin
 })
 
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() || compose;
+const composeEnhancers = ((window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()) || compose;
 
 export const rootStore = createStore(allReducers, composeEnhancers)

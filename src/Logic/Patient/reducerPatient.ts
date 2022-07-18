@@ -18,6 +18,8 @@ const initialState = [
 export function reducerPatient(state = initialState, action: any) {
   switch (action.type) {
     case actionPATIENT.ADD_PATIENT:
+      // console.log(action.payload)
+
       return [...state, action.payload];
 
     case actionPATIENT.EDIT_PATIENT:

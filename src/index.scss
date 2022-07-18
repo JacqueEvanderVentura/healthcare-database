@@ -1,28 +1,50 @@
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
-
 //Poppins
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 //Nunito
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+    @apply disabled:bg-slate-400 disabled:cursor-not-allowed disabled:text-white box-border
+}
 
-* { @apply disabled:bg-slate-400 disabled:cursor-not-allowed disabled:text-white box-border }
+h1 {
+    @apply text-6xl
+}
 
-h1 { @apply text-6xl }
-h2 { @apply text-5xl }
-h3 { @apply text-3xl }
-h4 { @apply text-2xl }
-h5 { @apply text-xl }
-h6 { @apply text-lg  }
+h2 {
+    @apply text-5xl
+}
 
-h1, h2, h3, h4, h5, h6 { @apply font-bold}
+h3 {
+    @apply text-3xl
+}
+
+h4 {
+    @apply text-2xl
+}
+
+h5 {
+    @apply text-xl
+}
+
+h6 {
+    @apply text-lg
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-bold
+}
 
 body {
     background: rgb(219, 215, 215);
     overflow: scroll;
-
 }
 
 button {
@@ -41,10 +63,8 @@ textarea {
 
 .modal {
     @apply fixed inset-y-0 inset-x-0 bg-gray-900 bg-opacity-50 flex flex-col justify-center items-center;
-
     .card {
         @apply rounded-2xl p-10 border border-gray-50 shadow-lg bg-white flex justify-center flex-col;
-
         input,
         select,
         textarea {
@@ -55,4 +75,10 @@ textarea {
 
 .main-green {
     background: #01987A;
+}
+
+.only-3-items-per-row {
+    display: inline-grid;
+    width: 15%;
+    min-width: fit-content;
 }
