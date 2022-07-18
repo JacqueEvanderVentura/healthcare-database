@@ -32,6 +32,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
       }
   function handleAddPatient(e: any) {
     e.preventDefault();
+    setShowingModal(false)
     dispatch({ type: actionPATIENT.ADD_PATIENT, payload: patientInfo });
   }
 
@@ -85,9 +86,9 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
                 <option value="DEFAULT-GENDER" disabled>
                   -- Seleccionar género --
                 </option>
-                <option value="male">Masculino</option>
-                <option value="female">Femenino</option>
-                <option value="other">Otro</option>
+                <option value="Male">Masculino</option>
+                <option value="Female">Femenino</option>
+                <option value="Other">Otro</option>
               </select>
             </div>
 

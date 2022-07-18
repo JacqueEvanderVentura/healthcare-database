@@ -15,19 +15,18 @@ const initialState = [
     lastModified: Date.now()
   },
 ];
-export function reducerPatient(state = initialState, action: any) {
+export default function reducerPatient(state = initialState, action: any) {
   switch (action.type) {
     case actionPATIENT.ADD_PATIENT:
-      // console.log(action.payload)
-
       return [...state, action.payload];
 
     case actionPATIENT.EDIT_PATIENT:
-        return state.map(patient =>{
-            if(patient.id === action.payload.id){
-                return {...action.payload, created: patient.created }
-            }
-        })
+      return state.map((patient:any)=>{
+        if(patient.id !== action.payload.id){
+          return patient
+        }
+        return {...action.payload, phone: action.payload.phone, email: action.payload.email}
+      })
 
     case actionPATIENT.DELETE_PATIENT:
       return;

@@ -9,6 +9,7 @@ import { ModalEditPatient } from './Modals/ModalEditPatient';
 
 import { dummyData } from './dummy-data';
 import { ModalPatientClinicalHistory } from './Modals/ModalPatientClinicalHistory';
+import { storePatient } from '../../Logic/Patient/storePatient';
 
 
 export const Pacientes = () => {
@@ -40,6 +41,7 @@ export const Pacientes = () => {
     setShowingClinicalHistoryModal(true);
     setPatient(patient)
   }
+  
     return (
     <div className='flex justify-center flex-col'>
       <SearchBar></SearchBar>
@@ -61,9 +63,9 @@ export const Pacientes = () => {
             <tr key={index}>
               <td className="max-w-fit">{patient.id}</td>
               <td>{patient.firstName} {patient.lastName}</td>
-              <td>{patient.bloodType.toUpperCase()}</td>
+              <td>{patient.bloodType}</td>
               <td style={{color:'#002A54'}}>
-              <a href={"https://api.whatsapp.com/send?phone=1" + patient.phone.replaceAll(/([() -])/g, "")} target="_blank" rel="noreferrer" className='underline'><i className="fa-brands fa-whatsapp"></i> {patient.phone}</a>
+              <a href={"https://api.whatsapp.com/send?phone=1" + patient.phone} target="_blank" rel="noreferrer" className='underline'><i className="fa-brands fa-whatsapp"></i> {patient.phone}</a>
               <br/>
               <a href={"mailto:"+patient.email} target="_blank" rel="noreferrer" className='underline'  ><i className="fa-solid fa-envelope"></i>{patient.email}</a>
               </td>

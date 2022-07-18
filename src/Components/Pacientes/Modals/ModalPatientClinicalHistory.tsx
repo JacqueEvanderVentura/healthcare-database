@@ -45,9 +45,9 @@ export const ModalPatientClinicalHistory = ({
         
           <div>
             <h6>Alergias:</h6>
-            {patient.allergies > 0?
+            {patient.allergies.length > 0?
             patient.allergies.map((allergy:any)=>
-             <span key={allergy} className="allergies-and-pathologies">{allergy || "No tiene"}</span>
+             <span key={allergy} className="allergies-and-pathologies">{allergy.charAt(0).toUpperCase() + allergy.slice(1)}</span>
              )
              :
              <span className="allergies-and-pathologies">Ninguna</span>

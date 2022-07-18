@@ -25,11 +25,12 @@ export const ModalEditPatient = ({
     allergies: selectedPatient[0].allergies,
     lastModification: Date.now(),
   });
-
   function onChangePatientInfoHandler(e: any) {
-    setPatientInfo({ ...patientInfo, [e.target.name]: e.target.value });
+    console.log([e.target.value])
+   return setPatientInfo({ ...patientInfo, [e.target.name]: e.target.value });
   }
   const dispatch = useDispatch();
+
   function handleEditPatient(e: any) {
     e.preventDefault();
     dispatch({ type: actionPATIENT.EDIT_PATIENT, payload: patientInfo });
@@ -101,7 +102,7 @@ export const ModalEditPatient = ({
                 title="Elegir tipo"
                 // defaultValue="DEFAULT-BLOOD-TYPE"
                 value={patientInfo.bloodType}
-                onChange={onChangePatientInfoHandler}
+                // onChange={onChangePatientInfoHandler}
                 name="bloodType"
                 id="inputSelectBloodTypes"
               >

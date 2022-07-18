@@ -1,6 +1,6 @@
 import { combineReducers, compose, createStore } from "redux"
 import reducerLogin from "./Login/reducerLogin";
-import { reducerPatient } from "./Patient/reducerPatient"
+import reducerPatient from "./Patient/reducerPatient";
 
 const allReducers = combineReducers({
     patient: reducerPatient,
