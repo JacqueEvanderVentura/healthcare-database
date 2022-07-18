@@ -23,7 +23,7 @@ export const Routing = () => {
       <Route path='/' element={<Pacientes />}></Route>
       {/* Navbar */}
       {navbarRouting.map(navItem=>
-        <Route path={navItem.path} element={navItem.element()}></Route>
+        <Route key={navItem.path} path={navItem.path} element={navItem.element()}></Route>
         )}
 
     </Routes>
