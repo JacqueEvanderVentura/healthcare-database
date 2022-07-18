@@ -1,55 +1,17 @@
 table {
     @apply mx-2 mb-2 text-center overflow-y-scroll;
 
-    th {
-        @apply text-white p-2;
-        font-family: Nunito, sans-serif;
-        background-color: #01987A;
+    th { @apply font-sans text-white p-2 bg-[#01987A] first:rounded-tl-2xl last:rounded-tr-2xl; 
+    font-family: Nunito;
+}
 
-        &:first-child {
-            @apply rounded-tl-2xl;
-        }
+    tr { @apply transition-all hover:transition-all hover:bg-[#75bcae] even:bg-[#f3f3f3] odd:bg-[#FFF] last:border-b-[3px] last:border-[#01987A]; }
 
-        &:last-child {
-            @apply rounded-tr-2xl;
-        }
+    td {
+        @apply duration-300 hover:duration-300 hover:bg-[#01987A] hover:text-white;
+
+        a { @apply hover:text-white }
+       
     }
-
-    tr {
-        transition: .2s;
-
-        &:nth-child(even) {
-            background-color: #f3f3f3;
-        }
-
-        &:nth-child(odd) {
-            background-color: #FFF;
-        }
-
-        &:last-child{
-            border-bottom: 3px solid #01987A;
-        }
-
-        &:hover{
-            background-color:#75bcae;
-            transition: .1s;
-        }
-    }
-
-    td{
-        transition: .2s;
-        a{
-            &:hover{
-                color:#FFF;
-            }
-        }
-        &:hover{
-            background-color: #01987A;
-            color: #FFF;
-            transition: .1s
-
-        }
-    }
-
 }
 
