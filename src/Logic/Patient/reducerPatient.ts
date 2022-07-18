@@ -29,7 +29,7 @@ export default function reducerPatient(state = initialState, action: any) {
       })
 
     case actionPATIENT.DELETE_PATIENT:
-      return;
+      return state.filter(patients=> patients.id !== action.payload.id);
 
     default:
       return state;

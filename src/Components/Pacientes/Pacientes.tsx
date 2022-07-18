@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch} from 'react-redux';
 
 import './Pacientes.scss';
 
@@ -9,15 +9,19 @@ import { ModalEditPatient } from './Modals/ModalEditPatient';
 
 import { dummyData } from './dummy-data';
 import { ModalPatientClinicalHistory } from './Modals/ModalPatientClinicalHistory';
-import { storePatient } from '../../Logic/Patient/storePatient';
+import { actionPATIENT } from '../../Logic/Patient/actionsPATIENT';
+import { ModalDeletePatient } from './Modals/ModalDeletePatient';
 
 
 export const Pacientes = () => {
   let [isShowingAddModal, setShowingAddModal] = useState(false);
-  let [isShowingEditModal, setShowingEditModal] = useState(false);
   let [isShowingClinicalHistoryModal, setShowingClinicalHistoryModal] = useState(false);
+  let [isShowingEditModal, setShowingEditModal] = useState(false);
+  let [isShowingDeleteModal, setShowingDeleteModal] = useState(false);
+
   let [patient, setPatient] = useState(null);
   let [patientId, setPatientId] = useState(null)
+
   const patients = useSelector((state:any)=>state.patient)
   // const dismissMap = (event: MouseEvent)=> {
   //   const element = <HTMLElement>event.target;
@@ -33,13 +37,17 @@ export const Pacientes = () => {
   //   setShowingModal(false);
   // };
 
+  function handleShowClinicalHistory(patient:any){
+    setShowingClinicalHistoryModal(true);
+    setPatient(patient)
+  }
   function handleShowEditModal(patientId:any){
     setShowingEditModal(true)
     setPatientId(patientId)
   }
-  function handleShowClinicalHistory(patient:any){
-    setShowingClinicalHistoryModal(true);
-    setPatient(patient)
+  function handleDeletePatient(patientId:any){
+    setShowingDeleteModal(true)
+    setPatientId(patientId)
   }
   
     return (
@@ -59,7 +67,8 @@ export const Pacientes = () => {
           </tr>
         </thead>
         <tbody>
-          {patients.map((patient:any, index:number)=>
+          {patients.length > 0?
+          patients.map((patient:any, index:number)=>
             <tr key={index}>
               <td className="max-w-fit">{patient.id}</td>
               <td>{patient.firstName} {patient.lastName}</td>
@@ -72,10 +81,16 @@ export const Pacientes = () => {
               <td className='space-x-2'>
                 <button onClick={()=>handleShowClinicalHistory(patient)} aria-label='Historial clínico' title='Historial clínico' className='w-14 bg-blue-500 border border-blue-500 hover:border-white transition-all hover:transition-all'><i className="fa-solid fa-clipboard-list"></i></button>
                 <button onClick={()=>handleShowEditModal(patient.id)} aria-label='Editar paciente' title='Editar paciente' className='w-14 bg-green-500 border border-green-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-pen-to-square"></i></button>
-                <button aria-label='Eliminar paciente' title='Eliminar paciente' className='w-14 bg-red-500 border border-red-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-user-xmark"></i></button>
+                <button onClick={()=>handleDeletePatient(patient.id)} aria-label='Eliminar paciente' title='Eliminar paciente' className='w-14 bg-red-500 border border-red-500 hover:border-white transition-all hover:transition-all '><i className="fa-solid fa-user-xmark"></i></button>
               </td>
             </tr>
-            )}
+            )
+          :
+          <tr>
+
+          <td colSpan={5}><em>No hay pacientes registrados</em></td>
+          </tr>
+          }
         </tbody>
       </table>
       :
@@ -107,6 +122,10 @@ export const Pacientes = () => {
       {
         isShowingClinicalHistoryModal &&
         <ModalPatientClinicalHistory setShowingModal={setShowingClinicalHistoryModal} patient={patient} />
+      }
+      {
+        isShowingDeleteModal &&
+        <ModalDeletePatient setShowingModal={setShowingDeleteModal} patientId={patientId} />
       }
     </div>
     
