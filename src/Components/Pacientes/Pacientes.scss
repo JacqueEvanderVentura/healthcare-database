@@ -5,10 +5,10 @@ table {
     font-family: Nunito;
 }
 
-    tr { @apply transition-all hover:transition-all hover:bg-[#75bcae] even:bg-[#f3f3f3] odd:bg-[#FFF] last:border-b-[3px] last:border-[#01987A]; }
+    tr { @apply transition-all hover:transition-all hover:bg-[#75bcae] even:bg-[#f3f3f3] odd:bg-[#FFF] last:border-b-[3px] last:border-[#01987A] cursor-default; }
 
     td {
-        @apply duration-300 hover:duration-300 hover:bg-[#01987A] hover:text-white;
+        @apply duration-300 hover:duration-300 hover:bg-[#01987A] hover:text-white cursor-default;
 
         a { @apply hover:text-white }
        
