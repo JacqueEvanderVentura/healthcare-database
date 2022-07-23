@@ -1,9 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { allergies } from "../../../Assets/allergies";
 import { bloodTypes } from "../../../Assets/blood-types";
 import { pathologies } from "../../../Assets/pathologies";
+import {handleCustomValidation, handleValidInput } from "../../../Logic/custom-input-validation";
 import { actionPATIENT } from "../../../Logic/Patient/actionsPATIENT";
+import { pattern } from "../../../Logic/RegexPatterns/patterns";
 import "./Modals.scss";
 
 export const ModalAddPatient = ({ setShowingModal }: any) => {
@@ -19,6 +21,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
     email: "",
     pathologies: [],
     allergies: [],
+    history: [],
     created: Date.now(),
     lastModification: Date.now(),
   });
@@ -36,11 +39,22 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
       ),
     });
   }
-  function handleAddPatient(e: any) {
+  function handleAddPatient(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setShowingModal(false);
     dispatch({ type: actionPATIENT.ADD_PATIENT, payload: patientInfo });
   }
+
+  function handleIdentificationValidity(e:any){
+    const idOnlyDigits = (e.target as HTMLInputElement).value.replace(pattern.clearNotDigits,'');
+
+    idOnlyDigits.length !== 11
+    ?
+    handleCustomValidation(e, "Por favor, ingrese solo los 11 dígitos de su cédula con o sin guiones.") 
+    :
+    handleValidInput(e)
+  }
+
 
   return (
     <div id="modalAddPatient" className="modal">
@@ -58,12 +72,19 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
         <form onSubmit={handleAddPatient} className="modalFormatInput">
           <label htmlFor="inputAddIdentification">Cédula o pasaporte:</label>
           <input
-            required
+            required={true}
             name="id"
             onChange={onChangePatientInfoHandler}
             id="inputAddIdentification"
+            // onInvalid={(e:any)=>(e.target as HTMLFormElement).value.length !== 11 && handleIdentificationValidity}
+            onInput={(e:any)=>handleIdentificationValidity(e)}
+            // // onInvalid={(e:React.FormEvent<HTMLFormElement>)=>handleIdentificationValidity(e, "si")}
+            // // onInvalid={e=>(e.target as HTMLInputElement).setCustomValidity('NO HAY ')}
+            // // onInvalid={e=>(e.target as HTMLInputElement).setCustomValidity('intro')}
             type="text"
-          />
+            minLength={11}
+            maxLength={13}
+            />  
 
           <label htmlFor="inputAddFirstName">Primer nombre:</label>
           <input
@@ -91,9 +112,9 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
                 name="gender"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectGender"
-                defaultValue=""
+                defaultValue="NO-GENDER-SPECIFIED"
               >
-                <option value="" disabled>
+                <option value="NO-GENDER-SPECIFIED" disabled>
                   -- Seleccionar género --
                 </option>
                 <option value="Male">Masculino</option>
@@ -109,10 +130,10 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
                 name="bloodType"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectBloodTypes"
-                defaultValue=""
+                defaultValue="NO-BLOOD-TYPE-SPECIFIED"
                 required
               >
-                <option value="" disabled>
+                <option value="NO-BLOOD-TYPE-SPECIFIED" disabled>
                   -- Seleccionar tipo --
                 </option>
                 {bloodTypes.map((bloodType) => (
@@ -130,7 +151,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
               <select
                 onChange={onChangeMultiplePatientInfoHandler}
                 name="allergies"
-                defaultValue="Ninguna alergia"
+                defaultValue={["Ninguna alergia"]}
                 id="inputSelectAllergies"
                 multiple
               >
@@ -150,7 +171,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
               <label htmlFor="inputSelectPathologies">Patologías:</label>
               <select
                 onChange={onChangeMultiplePatientInfoHandler}
-                defaultValue="Ninguna patología"
+                defaultValue={["Ninguna patología"]}
                 name="pathologies"
                 id="inputSelectPathologies"
                 multiple={true}

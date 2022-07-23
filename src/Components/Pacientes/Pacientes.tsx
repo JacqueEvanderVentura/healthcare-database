@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./Pacientes.scss";
 
@@ -9,8 +9,8 @@ import { ModalEditPatient } from "./Modals/ModalEditPatient";
 
 import { dummyData } from "./dummy-data";
 import { ModalPatientClinicalHistory } from "./Modals/ModalPatientClinicalHistory";
-import { actionPATIENT } from "../../Logic/Patient/actionsPATIENT";
 import { ModalDeletePatient } from "./Modals/ModalDeletePatient";
+import { pattern } from "../../Logic/RegexPatterns/patterns";
 
 export const Pacientes = () => {
   let [isShowingAddModal, setShowingAddModal] = useState(false);
@@ -84,13 +84,13 @@ export const Pacientes = () => {
                    {patient.phone?
                     <a
                       href={
-                        "https://api.whatsapp.com/send?phone=1" + patient.phone
+                        "https://api.whatsapp.com/send?phone=1" + patient.phone.replace(pattern.clearNotDigits, "")
                       }
                       target="_blank"
                       rel="noreferrer"
                       className="underline text-[#002A54] duration-300 hover:duration-300"
                     >
-                      <i className="fa-brands fa-whatsapp"></i> {patient.phone}
+                      <i className="fa-brands fa-whatsapp"></i> {patient.phone.replace(pattern.clearNotDigits, "").replace(pattern.formatPhone1of2, pattern.formatPhone2of2)}
                     </a>
                     :
                     <em>No hay número telefónico asociado</em>  

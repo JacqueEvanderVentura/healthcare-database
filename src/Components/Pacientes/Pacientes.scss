@@ -1,8 +1,9 @@
 table {
     @apply mx-2 mb-2 text-center overflow-y-scroll;
 
-    th { @apply font-sans text-white p-2 bg-[#01987A] first:rounded-tl-2xl last:rounded-tr-2xl; 
-    font-family: Nunito;
+    th {
+        @apply font-sans text-white p-2 bg-[#01987A] first:rounded-tl-2xl last:rounded-tr-2xl; 
+        font-family: Nunito;
 }
 
     tr { @apply transition-all hover:transition-all hover:bg-[#75bcae] even:bg-[#f3f3f3] odd:bg-[#FFF] last:border-b-[3px] last:border-[#01987A] cursor-default; }
