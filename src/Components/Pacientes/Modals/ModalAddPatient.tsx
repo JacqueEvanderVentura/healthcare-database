@@ -6,6 +6,7 @@ import { pathologies } from "../../../Assets/pathologies";
 import {handleCustomValidation, handleValidInput } from "../../../Logic/custom-input-validation";
 import { actionPATIENT } from "../../../Logic/Patient/actionsPATIENT";
 import { pattern } from "../../../Logic/RegexPatterns/patterns";
+import { validate } from "../../../Logic/RegexPatterns/validations";
 import "./Modals.scss";
 
 export const ModalAddPatient = ({ setShowingModal }: any) => {
@@ -55,6 +56,15 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
     handleValidInput(e)
   }
 
+  function handlePhoneValidity(e:any){
+    const phoneOnlyDigits = (e.target as HTMLFormElement).value.replace(pattern.clearNotDigits, "");
+
+    phoneOnlyDigits.length !== 10?
+    handleCustomValidation(e, "Por favor, ingrese un número telefónico o celular válido.")
+    :
+    handleValidInput(e)
+  }
+
 
   return (
     <div id="modalAddPatient" className="modal">
@@ -76,11 +86,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
             name="id"
             onChange={onChangePatientInfoHandler}
             id="inputAddIdentification"
-            // onInvalid={(e:any)=>(e.target as HTMLFormElement).value.length !== 11 && handleIdentificationValidity}
             onInput={(e:any)=>handleIdentificationValidity(e)}
-            // // onInvalid={(e:React.FormEvent<HTMLFormElement>)=>handleIdentificationValidity(e, "si")}
-            // // onInvalid={e=>(e.target as HTMLInputElement).setCustomValidity('NO HAY ')}
-            // // onInvalid={e=>(e.target as HTMLInputElement).setCustomValidity('intro')}
             type="text"
             minLength={11}
             maxLength={13}
@@ -193,6 +199,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
           <input
             name="phone"
             onChange={onChangePatientInfoHandler}
+            onInput={handlePhoneValidity}
             id="inputAddPhone"
             type="tel"
           />
