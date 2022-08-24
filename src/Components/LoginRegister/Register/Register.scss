@@ -1,0 +1,13 @@
+.left-side-register{
+    @apply flex flex-col w-[50%] h-full border bg-white justify-center items-center;
+
+    form{
+        input, button{
+            @apply w-96 h-10 p-2
+        }
+    }
+}
+
+.right-side-register{
+    @apply flex w-[50%] h-full
+}
