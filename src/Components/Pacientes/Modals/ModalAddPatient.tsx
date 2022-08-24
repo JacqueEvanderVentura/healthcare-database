@@ -4,6 +4,7 @@ import { allergies } from "../../../Assets/allergies";
 import { bloodTypes } from "../../../Assets/blood-types";
 import { pathologies } from "../../../Assets/pathologies";
 import {handleCustomValidation, handleValidInput } from "../../../Logic/custom-input-validation";
+import { handleIdentificationValidity, handleSelectInputValidation, handlePhoneValidity } from "../../../Logic/FormHandlers";
 import { actionPATIENT } from "../../../Logic/Patient/actionsPATIENT";
 import { pattern } from "../../../Logic/RegexPatterns/patterns";
 import { validate } from "../../../Logic/RegexPatterns/validations";
@@ -42,29 +43,12 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
   }
   function handleAddPatient(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+   
     setShowingModal(false);
     dispatch({ type: actionPATIENT.ADD_PATIENT, payload: patientInfo });
   }
 
-  function handleIdentificationValidity(e:any){
-    const idOnlyDigits = (e.target as HTMLInputElement).value.replace(pattern.clearNotDigits,'');
-
-    idOnlyDigits.length !== 11
-    ?
-    handleCustomValidation(e, "Por favor, ingrese solo los 11 dígitos de su cédula con o sin guiones.") 
-    :
-    handleValidInput(e)
-  }
-
-  function handlePhoneValidity(e:any){
-    const phoneOnlyDigits = (e.target as HTMLFormElement).value.replace(pattern.clearNotDigits, "");
-
-    phoneOnlyDigits.length !== 10?
-    handleCustomValidation(e, "Por favor, ingrese un número telefónico o celular válido.")
-    :
-    handleValidInput(e)
-  }
-
+ 
 
   return (
     <div id="modalAddPatient" className="modal">
@@ -82,12 +66,13 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
         <form onSubmit={handleAddPatient} className="modalFormatInput">
           <label htmlFor="inputAddIdentification">Cédula o pasaporte:</label>
           <input
-            required={true}
             name="id"
             onChange={onChangePatientInfoHandler}
             id="inputAddIdentification"
             onInput={(e:any)=>handleIdentificationValidity(e)}
             type="text"
+            required={true}
+            // onInvalid={(e:any)=>(e.target as HTMLFormElement).setCustomValidity("Por favor, introduzca su cédula de identidad.")}
             minLength={11}
             maxLength={13}
             />  
@@ -114,18 +99,21 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
             <div>
               <label htmlFor="inputSelectGender">Género:</label>
               <select
-                required
+                required={true}
                 name="gender"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectGender"
-                defaultValue="NO-GENDER-SPECIFIED"
+                defaultValue=""
+                onInput={handleSelectInputValidation}
+                
               >
-                <option value="NO-GENDER-SPECIFIED" disabled>
+                <option value="" disabled>
                   -- Seleccionar género --
                 </option>
                 <option value="Male">Masculino</option>
                 <option value="Female">Femenino</option>
                 <option value="Other">Otro</option>
+                <option value="Rather not say">Prefiero no responder</option>
               </select>
             </div>
 
@@ -136,10 +124,12 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
                 name="bloodType"
                 onChange={onChangePatientInfoHandler}
                 id="inputSelectBloodTypes"
-                defaultValue="NO-BLOOD-TYPE-SPECIFIED"
+                defaultValue=""
+                onInvalid={e=> handleCustomValidation(e, "Por favor, seleccione el tipo de sangre del paciente.")}
+                onInput={handleSelectInputValidation}
                 required
               >
-                <option value="NO-BLOOD-TYPE-SPECIFIED" disabled>
+                <option value="" disabled>
                   -- Seleccionar tipo --
                 </option>
                 {bloodTypes.map((bloodType) => (
@@ -212,7 +202,7 @@ export const ModalAddPatient = ({ setShowingModal }: any) => {
             type="email"
           />
 
-          <button className="main-green m-2 justify-self-end pr-3 transition-all hover:transition-all hover:bg-green-500 ">
+          <button className="bg-main-green m-2 justify-self-end pr-3 transition-all hover:transition-all hover:bg-green-500 ">
             <span>
               <i className="fa-solid fa-plus"></i>
             </span>

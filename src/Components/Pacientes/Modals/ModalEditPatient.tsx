@@ -133,7 +133,7 @@ export const ModalEditPatient = ({
             type="email"
           />
 
-          <button className="main-green m-2 self-end pr-3 transition-all hover:transition-all hover:bg-green-500 ">
+          <button className="bg-main-green m-2 self-end pr-3 transition-all hover:transition-all hover:bg-green-500 ">
             <span>
               <i className="fa-solid fa-check"></i>
             </span>
