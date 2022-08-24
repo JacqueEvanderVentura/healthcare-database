@@ -2,35 +2,41 @@
 @tailwind utilities;
 @tailwind components;
 //Poppins
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
 //Nunito
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
 * {
-    @apply disabled:bg-slate-400 disabled:cursor-not-allowed disabled:text-white box-border
+  @apply disabled:bg-slate-400 disabled:cursor-not-allowed disabled:text-white box-border;
 }
 
+.primary-font{
+  font-family: Poppins, sans-serif
+}
+.secondary-font{
+  font-family: Nunito, sans-serif;
+}
 h1 {
-    @apply text-6xl
+  @apply text-6xl;
 }
 
 h2 {
-    @apply text-5xl
+  @apply text-5xl;
 }
 
 h3 {
-    @apply text-3xl
+  @apply text-3xl;
 }
 
 h4 {
-    @apply text-2xl
+  @apply text-2xl;
 }
 
 h5 {
-    @apply text-xl
+  @apply text-xl;
 }
 
 h6 {
-    @apply text-lg
+  @apply text-lg;
 }
 
 h1,
@@ -39,46 +45,92 @@ h3,
 h4,
 h5,
 h6 {
-    @apply font-bold
+  @apply font-bold;
 }
 
 body {
-    background: rgb(219, 215, 215);
-    overflow: scroll;
+  background: rgb(219, 215, 215);
+  overflow: scroll;
 }
 
 button {
-    @apply bg-slate-600 rounded-md w-20 h-10 p-2 min-w-fit text-white;
+  @apply bg-slate-600 rounded-md w-20 h-10 p-2 min-w-fit text-white;
 }
 
 i {
-    @apply m-1
+  @apply m-1;
 }
 
 input,
 select,
 textarea {
-    @apply px-2 py-1 rounded-md;
+  @apply px-2 py-1 rounded-md border border-black;
 }
 
+.bg-1{
+  background: url('./Assets/bg/african-doctor-and-african-patient.jpg')  no-repeat center / cover;
+}
+
+.bg-2{
+  background: url('./Assets/bg/african-doctor-and-caucasic-patient.jpg')  no-repeat center / cover;
+}
+
+// .bg-3{
+//   background: url('./Assets/bg/african-doctor-and-caucasic-patient-2.jpg')  no-repeat center / cover;
+// }
+
+// .bg-4{
+//   background: url('./Assets/bg/caucasic-doctor-and-african-girl.jpg')  no-repeat center / cover;
+// }
+
+.bg-opaque{
+  @apply  flex w-full h-full items-center justify-center flex-col  p-1 bg-[#0008] text-white
+}
+
+.hyperlink{
+  @apply italic text-blue-700 hover:text-blue-400 hover:cursor-pointer hover:underline
+}
 .modal {
-    @apply fixed inset-y-0 inset-x-0 bg-gray-900 bg-opacity-50 flex flex-col justify-center items-center;
-    .card {
-        @apply rounded-2xl p-10 border border-gray-50 shadow-lg bg-white flex justify-center flex-col;
-        input,
-        select,
-        textarea {
-            @apply border border-black block;
-        }
+  @apply fixed inset-y-0 inset-x-0 bg-gray-900 bg-opacity-50 flex flex-col justify-center items-center;
+  .card {
+    @apply rounded-2xl p-10 border border-gray-50 shadow-lg bg-white flex justify-center flex-col;
+    input,
+    select,
+    textarea {
+      @apply border border-black block;
     }
+  }
 }
 
-.main-green {
-    background: #01987A;
+.bg-main-green {
+  background: #01987a;
+}
+.text-main-green{
+  color: #01987a;
+}
+
+.bg-main-blue{
+  background: #002A54;
+}
+.text-main-blue{
+  color: #002A54;
 }
 
 .only-3-items-per-row {
-    display: inline-grid;
-    width: 15%;
-    min-width: fit-content;
+  display: inline-grid;
+  width: 15%;
+  min-width: fit-content;
+}
+
+.no-number-spin{
+  &::-webkit-outer-spin-button,
+&::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 }

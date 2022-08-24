@@ -1,0 +1,1 @@
+export const userRoles=['Paciente', 'Personal de la salud']
