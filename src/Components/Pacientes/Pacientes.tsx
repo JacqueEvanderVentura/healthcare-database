@@ -6,11 +6,12 @@ import "./Pacientes.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ModalAddPatient } from "./Modals/ModalAddPatient";
 import { ModalEditPatient } from "./Modals/ModalEditPatient";
-
-import { dummyData } from "./dummy-data";
 import { ModalPatientClinicalHistory } from "./Modals/ModalPatientClinicalHistory";
 import { ModalDeletePatient } from "./Modals/ModalDeletePatient";
+
+import { dummyData } from "./dummy-data";
 import { pattern } from "../../Logic/RegexPatterns/patterns";
+import { isMobile } from "../../Logic/isMobile";
 
 export const Pacientes = () => {
   let [isShowingAddModal, setShowingAddModal] = useState(false);
@@ -52,102 +53,16 @@ export const Pacientes = () => {
 
   return (
     <div className="flex justify-center flex-col">
-      <SearchBar></SearchBar>
       <button
         onClick={() => setShowingAddModal(true)}
-        className="main-green self-end m-2 pr-3 hover:bg-green-500 transition-all hover:transition-all"
-      >
+        className="bg-main-green self-end m-2 pr-3 hover:bg-green-500 transition-all hover:transition-all"
+        >
         <i className="fa-solid fa-plus"></i>Agregar
       </button>
+        <SearchBar></SearchBar>
 
-      {window.innerWidth > 710 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Identificación</th>
-              <th>Nombre completo</th>
-              <th>Tipificación</th>
-              <th>Contacto</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {patients.length > 0 ? (
-              patients.map((patient: any, index: number) => (
-                <tr key={index}>
-                  <td className="max-w-fit">{patient.id}</td>
-                  <td>
-                    {patient.firstName} {patient.lastName}
-                  </td>
-                  <td>{patient.bloodType}</td>
-                  <td>
-                   {patient.phone?
-                    <a
-                      href={
-                        "https://api.whatsapp.com/send?phone=1" + patient.phone.replace(pattern.clearNotDigits, "")
-                      }
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline text-[#002A54] duration-300 hover:duration-300"
-                    >
-                      <i className="fa-brands fa-whatsapp"></i> {patient.phone.replace(pattern.clearNotDigits, "").replace(pattern.formatPhone1of2, pattern.formatPhone2of2)}
-                    </a>
-                    :
-                    <em>No hay número telefónico asociado</em>  
-                  }
-                    <br />
-                    {patient.email?
-                      <a
-                      href={"mailto:" + patient.email}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline text-[#002A54] duration-300 hover:duration-300"
-                    >
-                      <i className="fa-solid fa-envelope"></i>
-                      {patient.email}
-                    </a>
-                    :
-                    <em>No hay correo electrónico asociado</em>
-                    }
-                  </td>
-                  <td className="space-x-2">
-                    <button
-                      onClick={() => handleShowClinicalHistory(patient)}
-                      aria-label="Historial clínico"
-                      title="Historial clínico"
-                      className="w-14 bg-blue-500 border border-blue-500 hover:border-white duration-300 hover:duration-300"
-                    >
-                      <i className="fa-solid fa-clipboard-list"></i>
-                    </button>
-                    <button
-                      onClick={() => handleShowEditModal(patient.id)}
-                      aria-label="Editar paciente"
-                      title="Editar paciente"
-                      className="w-14 bg-green-500 border border-green-500 hover:border-white duration-300 hover:duration-300 "
-                    >
-                      <i className="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button
-                      onClick={() => handleDeletePatient(patient.id)}
-                      aria-label="Eliminar paciente"
-                      title="Eliminar paciente"
-                      className="w-14 bg-red-500 border border-red-500 hover:border-white duration-300 hover:duration-300 "
-                    >
-                      <i className="fa-solid fa-user-xmark"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5}>
-                  <em>No hay pacientes registrados</em>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      ) : (
+      {isMobile() ? (
+      
         <table>
           <tbody>
             {dummyData.map((dummy, index) => (
@@ -189,6 +104,93 @@ export const Pacientes = () => {
             ))}
           </tbody>
         </table>
+      ) : (
+        <table>
+        <thead>
+          <tr>
+            <th>Identificación</th>
+            <th>Nombre completo</th>
+            <th>Tipificación</th>
+            <th>Contacto</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.length > 0 ? (
+            patients.map((patient: any, index: number) => (
+              <tr key={index}>
+                <td className="max-w-fit">{patient.id}</td>
+                <td>
+                  {patient.firstName} {patient.lastName}
+                </td>
+                <td>{patient.bloodType}</td>
+                <td>
+                 {patient.phone?
+                  <a
+                    href={
+                      "https://api.whatsapp.com/send?phone=1" + patient.phone.replace(pattern.clearNotDigits, "")
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-[#002A54] duration-300 hover:duration-300"
+                  >
+                    <i className="fa-brands fa-whatsapp"></i> {patient.phone.replace(pattern.clearNotDigits, "").replace(pattern.formatPhone1of2, pattern.formatPhone2of2)}
+                  </a>
+                  :
+                  <em>No hay número telefónico asociado</em>  
+                }
+                  <br />
+                  {patient.email?
+                    <a
+                    href={"mailto:" + patient.email}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-[#002A54] duration-300 hover:duration-300"
+                  >
+                    <i className="fa-solid fa-envelope"></i>
+                    {patient.email}
+                  </a>
+                  :
+                  <em>No hay correo electrónico asociado</em>
+                  }
+                </td>
+                <td className="space-x-2">
+                  <button
+                    onClick={() => handleShowClinicalHistory(patient)}
+                    aria-label="Historial clínico"
+                    title="Historial clínico"
+                    className="w-14 bg-blue-500 border border-blue-500 hover:border-white duration-300 hover:duration-300"
+                  >
+                    <i className="fa-solid fa-clipboard-list"></i>
+                  </button>
+                  <button
+                    onClick={() => handleShowEditModal(patient.id)}
+                    aria-label="Editar paciente"
+                    title="Editar paciente"
+                    className="w-14 bg-green-500 border border-green-500 hover:border-white duration-300 hover:duration-300 "
+                  >
+                    <i className="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button
+                    onClick={() => handleDeletePatient(patient.id)}
+                    aria-label="Eliminar paciente"
+                    title="Eliminar paciente"
+                    className="w-14 bg-red-500 border border-red-500 hover:border-white duration-300 hover:duration-300 "
+                  >
+                    <i className="fa-solid fa-user-xmark"></i>
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={5}>
+                <em>No hay pacientes registrados</em>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
       )}
       {isShowingAddModal && (
         <ModalAddPatient setShowingModal={setShowingAddModal} />
